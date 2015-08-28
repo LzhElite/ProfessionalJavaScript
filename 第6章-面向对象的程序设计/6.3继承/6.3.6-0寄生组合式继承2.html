@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+
+    function SuperType(name){
+        this.name = name;
+        this.colors = ["red", "blue", "green"];
+    }
+    SuperType.prototype.sayName = function(){
+        alert(this.name);
+    };
+    function SubType(name, age){
+        //继承属性
+        SuperType.call(this, name);
+        this.age = age;
+    }
+/*    //1 继承方法
+    function F(){}
+    F.prototype=SuperType.prototype;
+    SubType.prototype =new F();
+    SubType.prototype.constructor=SubType;
+*/
+
+/*    //2 继承方法
+    function inheritPrototype(subType,superType){
+        function F(){};
+        F.prototype=superType.prototype;
+        subType.prototype=new F();
+        subType.prototype.constructor=subType;
+    }
+    inheritPrototype(SubType, SuperType);
+*/
+
+    //3 继承方法
+    //方法：返回一个对象1，对象的原型指向对象o
+    function object(o){
+         function F(){};
+         F.prototype=o;
+         return new F();
+     }
+     //
+    function inheritPrototype(subType, superType){
+        var prototype = object(superType.prototype); //创建对象
+        prototype.constructor = subType; //增强对象
+        subType.prototype = prototype; //指定对象
+    }
+    inheritPrototype(SubType, SuperType);
+
+
+    SubType.prototype.sayAge = function(){
+        alert(this.age);
+    };
+    //
+
+
+    var person1=new SubType("lzh",27);
+    //person1.sayAge();
+    person1.sayName();
+
+</script>

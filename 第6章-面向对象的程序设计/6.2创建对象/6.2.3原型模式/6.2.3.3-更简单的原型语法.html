@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    //3、更简单的原型语句
+    function Person(){
+    }
+    Person.prototype = {
+        constructor : Person,//重写constructor,可枚举
+        name : "Nicholas",
+        age : 29,
+        job : "Software Engineer",
+        sayName : function () {
+            alert(this.name);
+        }
+    };
+    Object.defineProperty(Person.prototype,"constructor",{//constructor设置为不可枚举
+        enumerable:false,
+        value:Person
+    });
+
+
+</script>

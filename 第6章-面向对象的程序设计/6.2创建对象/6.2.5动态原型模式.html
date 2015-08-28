@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>动态原型模式</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    function Person(name,age,job){
+        this.name=name;
+        this.age=age;
+        this.job=job;
+        this.friends=["lzh","hzy"];
+        //方法 检查某个应该存在的方法是否有效，来决定是否需要初始化原型
+        if(typeof this.sayName !="function"){//不存在sayName，会建立原型，创建方法
+            Person.prototype.sayName=function(){
+                alert(this.name);
+            }
+        }
+        if(typeof this.toString !="function"){//对象本身不存在toString，但是其原型链上Object对象有toString方法，因此不会建立原型，创建方法
+         Person.prototype.toString=function(){
+         alert(this.age);
+         }
+     }
+
+    }
+    var friend=new Person("hjl",47,"nongmin");
+    friend.sayName();//输出hjl
+    friend.toString();
+</script>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+
+    //1. 理解原型对象
+    function Person(){
+
+    }
+    Person.prototype.name="lzh";
+    Person.prototype.age=29;
+    Person.prototype.job="Software Engineer";
+    Person.prototype.sayName=function(){
+        alert(this.name);
+    };
+    var person1=new Person();
+    var person2=new Person();
+    //person1.sayName();
+    //alert(person1.sayName == person2.sayName) //true
+    person1.name="hzy";
+    Object.defineProperty(person1,"age",{
+        writable:false,
+        value:"27"
+    });
+/*    console.log("name是不是自己的属性： "+person1.hasOwnProperty("name"));
+    person1.name=null;
+    console.log("name是不是自己的属性： "+person1.hasOwnProperty("name"));
+    delete person1.name;
+    console.log("name是不是自己的属性： "+person1.hasOwnProperty("name"));
+    console.log(person1.name);
+    console.log(person2.name);*/
+
+    //2、 原型与in操作符
+    //console.log(Person.prototype.hasOwnProperty("age"));
+   // console.log("name" in person1);//如果"name"是可枚举的属性，则返回true
+
+    //定义一个函数，判断属性(name)是否是对象(object)原型中的属性
+    function hasPrototypeProperty(object,name){
+        return !object.hasOwnProperty(name)&&(name in object);
+    }
+    //console.log(hasPrototypeProperty(person1,"name")); //false
+    //console.log(hasPrototypeProperty(person2,"name")); //true
+
+    //Object.keys(object)接收一个对象作为参数，返回可枚举的属性
+    var keys=Object.keys(Person.prototype);
+   // console.log(keys);  //返回Person.prototype上所有可枚举的属性名
+    var pkeys=Object.keys(person1);
+    //console.log(pkeys); //返回person1对象上可枚举的属性，不包括原型上可枚举的属性
+    var arr=[];
+    for(var i in person1){
+        arr.push(i+":"+person1[i]);
+    }
+    //console.log(arr);//"for in 枚举person1对象的属性"
+    var keysAllP=Object.getOwnPropertyNames(person1);
+    var keysAll=Object.getOwnPropertyNames(Person);
+    //console.log(keysAllP);
+    //console.log(keysAll);
+
+</script>

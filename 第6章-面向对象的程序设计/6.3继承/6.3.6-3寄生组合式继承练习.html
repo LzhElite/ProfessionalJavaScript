@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+//寄生组合式继承，只继承原型
+
+    //1、将父类型的原型superType.prototype,复制给新的函数原型F.prototype
+    //2、创建一个新函数F的实例
+    function object(o){
+        function F(){};
+        F.prototype=o;
+        return new F();
+    }
+    //3、新函数F的实例，赋值给子类型原型subType.prototype
+    function inheritPrototype(superType,subType){
+        var prototype=object(superType.prototype);
+        prototype.constructor=SubType;
+        subType.prototype=prototype;
+    }
+
+</script>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    //4、原型的动态性
+    /*var friend=new Person();
+     Person.prototype.sayHi=function(){
+     alert("hi!");
+     };*/
+    //friend.sayHi();//Person.prototype上添加新方法，实例friend会动态更新。
+
+    //重写原型，不能动态更新
+    //
+    function Person(){}
+    Person.prototype={
+        name:"",
+        sayName:function(){
+            alert(this.name);
+        }
+    };//最初的原型1
+    var friend=new Person();//对象实例1
+    Person.prototype = {//重写原型对象切断了 现有原型(最初的原型1) 与 已经存在的对象实例1 之间的联系
+        sayHi:function(){
+            alert("hi!")
+        }
+    };
+    friend.sayName();//正常输出lzh
+    //friend.sayHi();//输出错误：Uncaught TypeError: friend.sayHi is not a function
+    // 对象实例1 引用的仍然是最初的原型1
+</script>
