@@ -6,7 +6,7 @@ var leftPos=(typeof window.screenLeft=="number")?window.screenLeft:window.screen
 var topPos=(typeof window.screenLeft=="number")?window.screenLeft:window.screenX;
 
 
-/*视口（viewport）*/
+/*取得视口（viewport）*/
 var pageWidth=window.innerWidth,
     pageHeight=window.innerHeight;
 if(typeof pageWidth!="number"){
