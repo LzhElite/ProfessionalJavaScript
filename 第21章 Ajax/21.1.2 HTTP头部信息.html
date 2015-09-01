@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript" src="XHR.js"></script>
+<script>
+/*
+   每个 HTTP 请求和响应都会带有相应的头部信息
+   使用 setRequestHeader(头部字段的名称，头部字段的值)方法可以设置自定义的请求头部信息。
+   要成功发送请求头部信息，必须在调用 open()方法之后且调用 send()方法之前调用 setRequestHeader()。
+
+ */
+    var xhr=myxhr.createXHR();
+    xhr.onreadystatechange=function(){
+        if(xhr.readyState==4){
+            if(xhr.status==200||xhr.status==304){
+                alert("successful")
+            }else{
+                alert("unsuccessful")
+            }
+        }
+    };
+
+    xhr.open("get","example.php",false);
+
+    xhr.setRequestHeader("MyHeader","MyValue")//自定义的头部信息
+
+    xhr.send(null);
+
+
+</script>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * 函数柯里化（function currying），用于创建已经设置好了一个或多个参数的函数
+    * 柯里化函数通常由以下步骤动态创建：调用另一个函数并为它传入要柯里化的函数和比较的参数
+    *
+    *
+    * */
+    function curry(fn){ //fn为要进行柯里化的函数
+        var args=Array.prototype.slice.call(arguments,1);//取得 设置要柯里化参数
+        return function(){
+            var innerArgs=Array.prototype.slice.call(arguments) //取得被柯里化后函数的参数
+            var finalArgs=args.concat(innerArgs);
+            return fn.apply(null,finalArgs);
+        }
+    }
+
+    /*
+    * 函数柯里化还常常作为函数绑定的一部分包含在其中，构造出更为复杂的 bind()函数
+    * */
+    function bind(fn,context){
+        var args=Array.prototype.slice.call(arguments,2);
+        return function(){
+            var innerArgs=Array.prototype.call(arguments);
+            var finalArgs=args.concat(innerArgs);
+            return fn.apply(context,finalArgs);
+        }
+    }
+</script>
+</html>

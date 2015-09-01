@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+</body>
+<script type="text/javascript">
+    /*
+    * 函数绑定
+    * 函数绑定要创建一个函数，可以在特定的this环境中以指定参数调用另一个函数。
+    * 该技巧常常和回调函数与事件处理一起使用，以便将函数作为变量传递的同时保留代码执行环境
+    * */
+    function bind(fn,context){
+        return function(){
+            return fn.apply(context,arguments);
+        }
+    }
+    /*
+    * 被绑定函数与普通函数相比有更多的开销，它们需要更多内存，同时也因为多重函数调用稍微慢一点，所以最好只在必要时使用。
+    * */
+
+</script>
+</html>

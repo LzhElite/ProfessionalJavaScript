@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>21.1.4 POST请求</title>
+</head>
+<body>
+<!--
+    POST 请求应该把数据作为请求的主体提交，
+    POST 请求的主体可以包含非常多的数据，而且格式不限。
+
+    使用XHR模仿表单提交时的内容类型
+    1、将Content-type头部信息设置为application/x-www-form-urlencoded
+    2、以适当的格式创建一个字符串
+
+-->
+<script type="text/javascript" src="XHR.js"></script>
+<script>
+    function submitData(){
+        var xhr=myxhr.createXHR();
+        xhr.onreadystatechange=function(){
+            if(xhr.readyState==4){
+                if(xhr.status>=200&&xhr.status<300||xhr.status==304){
+                    alert(xhr.responseText);
+                }else{
+                    alert("Request was successful:"+xhr.status);
+                }
+            }
+        };
+
+        xhr.open("post","postexample.php",true);
+        xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+        var form=document.getElementById("user-info");
+
+        xhr.send(serialize(form));
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+    /* 安全的类型检测
+    *  typeof  兼容性问题typeof REG
+    *  instanceof 不能检测原生对象还是自定义对象
+    *  Object.prototype.toString.call(value)
+    * */
+    function isArray(value){
+        return Object.prototype.toString.call(value)=="[object Array]"
+    }
+
+    function isFunction(value){
+        return Object.prototype.toString.call(value)=="[object Function]"
+    }
+
+    function isRegExp(value){
+        return Object.prototype.toString.call(value)=="[object RegExp]"
+    }
+
+    /*
+    * Object的toString方法不能检测非原生的构造函数名，开发人员定义的任何构造函数都会返回[object Object]
+    * */
+    var isNativeJSON=window.JSON&&Object.prototype.toString.call(JSON)=="[object JSON]";
+
+</script>
+</body>
+</html>

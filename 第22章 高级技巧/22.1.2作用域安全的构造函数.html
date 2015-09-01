@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    *构造函数其实就是使用new操作符调用的函数，当使用new调用时，构造函数内用到的this对象会指向新创建的对象实例
+    *作用域安全的构造函数，在进行任何更改前，首先确认this对象是不是正确类型的实例，如果不是，那么会创建新的实例并返回
+    *
+    * */
+    function Person(name,age,job){
+        if(this instanceof Person){
+            this.name=name;
+            this.age=age;
+            this.job=job;
+        }else{
+            return new Person(name,age,job)
+        }
+    }
+/*
+* 作用域安全的构造函数，锁定了可以调用的构造函数的环境，不能使用构造函数窃取模式继承。
+* */
+    //创建一个作用域安全的构造函数Polygon
+    function Polygon(sides){
+        if(this instanceof Polygon){
+            this.sides=sides;
+            this.getArea=function(){
+                return 0;
+            }
+        }else{
+            return new Polygon(sides);
+        }
+    }
+
+    //创建一个构造函数Rectangle，通过构造函数窃取模式，无法继承构造函数Polygon的属性 this.sides.而属性this.getArea在Rectangle内部重写了
+    function Rectangle(width,heigt){
+        Polygon.call(this,2);//通过构造函数窃取模式，this指向Rectanle实例，非Polygon实例，返回一个Polygon的新（匿名）实例
+        this.width=width;
+        this.height=heigt;
+        this.getArea=function(){//而属性this.getArea在Rectangle内部重写了
+            return this.width*this.height;
+        }
+    }
+
+    var rect=new Rectangle(5,10);
+    alert(rect.getArea()); //50
+    alert(rect.sides);//undefined
+</script>
+</html>

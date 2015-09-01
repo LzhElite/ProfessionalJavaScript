@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<script>
+
+    /*
+     * GET 是最常见的请求类型
+     * 可以将查询字符串参数追加到 URL 的末尾，以便将信息发送给服务器
+     * 查询字符串中每个参数的名称和值都必须使用 encodeURIComponent()进行编码，然后才能放到 URL 的末尾；
+     * */
+    var xhr=myxhr.createXHR();
+    xhr.onreadystatechange=function(){
+        if(xhr.readyState==4){
+            if(xhr.status==200||xhr.status==304){
+                alert("successful")
+            }else{
+                alert("unsuccessful")
+            }
+        }
+    };
+
+    var url="example.php";
+    url=myxhr.addURLParam(url,"name","Nicholas");
+    url=myxhr.addURLParam(url,"book","Professional JavaScript");
+
+    xhr.open("get","example.php",false);
+
+    xhr.send(null);
+
+
+</script>
+</body>
+</html>
