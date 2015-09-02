@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>表单序列化</title>
+    <style>
+        body,form,p,input,label,option,span{
+            margin: 0;
+            padding: 0;
+        }
+        #testForm{
+            width: 600px;
+            margin:50px auto;
+            padding: 20px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            box-shadow: 0 0 3px 3px #eaeaea;
+        }
+        #testForm p{
+            padding: 10px 0;
+        }
+        #testForm .form-label{
+            width: 100px;
+            text-align: right;
+            float: left;
+        }
+        #testForm #btn{
+            margin-left: 100px;
+        }
+    </style>
+</head>
+<body>
+<form id="testForm">
+    <p>
+        <label class="form-label">姓名</label>
+        <input type="text" id="name">
+        <span class="red" id="nameRemind"></span>
+
+    </p>
+    <p>
+        <label class="form-label">出生日期</label>
+        <select id="year" name="year">
+            <option>2015</option>
+            <option>2016</option>
+            <option>2017</option>
+            <option>2018</option>
+        </select>
+        <label for="year">年</label>
+        <select id="month" name="month">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+        </select>
+        <label for="month">月</label>
+        <select id="day" name="day">
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+        </select>
+        <label for="day">日</label>
+        <span class="red" id="dayRemind"></span>
+    </p>
+    <p>
+        <label class="form-label">性别</label>
+        <input type="radio" id="men" name="gendor">
+        <label for="men">男</label>
+        <input type="radio" id="women" name="gendor">
+        <label for="women">女</label>
+    </p>
+    <p>
+        <label class="form-label">专长</label>
+        <input type="checkbox" name="hobby[]" id="html" value="html">HTML
+        <input type="checkbox" name="hobby[]" id="css" value="css">CSS
+        <input type="checkbox" name="hobby[]" id="javascript" value="javascript">JAVASCRIPT
+    </p>
+    <p>
+        <label class="form-label">兴趣爱好</label>
+        <select id="sport" name="sport[]" multiple>
+            <option>吃饭</option>
+            <option>睡觉</option>
+            <option>打豆豆</option>
+        </select>
+    </p>
+    <p>
+        <label class="form-label">备注</label>
+        <textarea id="comment" name="comment"></textarea>
+    </p>
+    <p>
+        <input type="button" id="btn" value="提交">
+    </p>
+
+</form>
+</body>
+<script>
+    function serialize(form){
+        var parts=[],
+            field=null,
+            i,
+            len,
+            j,
+            optLen,
+            option,
+            optValue;
+        for(i=1,len=form.elements.length;i<len;i++){
+            field=form.elements[i];
+            switch (field.type){
+                case "select-one":
+                case "select-multiple":
+                    if(field.name.length){
+                        for(j=0,optLen=field.options.length;j<optLen;j++){
+                            option=field.options[j];
+                            if(option.selected){
+                                optValue=""//不包含没有名字的表单字段;
+                                if(option.hasAttribute){//Internet Explorer 8 以及更早的版本不支持该方法
+                                    optValue=option.hasAttribute("value")?option.value:option.text;
+                                }else{
+                                    optValue=option.attributes["value"].specified?option.value:option.text;//在 Internet Explorer 8 以及更早的版本中，attributes 属性会返回元素所有可能属性的集合。
+                                }
+                                parts.push(encodeURIComponent(field.name)+"="+encodeURIComponent(optValue));
+                            }
+                        }
+                    }
+                    break;
+                case "undefined":
+                case "file":
+                case "submit":
+                case "reset":
+                case "button":
+                    break;
+                case "radio":
+                case "checkbox":
+                    if(!field.checked){
+                        break;
+                    }
+                default :
+                    if(field.name.length){//不包含没有名字的表单字段
+                        parts.push(encodeURIComponent(field.name)+"="+encodeURIComponent(field.value));
+                    }
+            }
+        }
+        return parts.join("&");
+    }
+</script>
+</html>
